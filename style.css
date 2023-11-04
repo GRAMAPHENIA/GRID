@@ -12,25 +12,6 @@ body {
   margin: 1rem 10rem;
 }
 
-@media (max-width: 1024px) {
-  body {
-    margin: 1rem 2rem;
-  }
-}
-
-.navegacion {
-  display: flex;
-  /* max-width: 1175px; */
-  justify-content: space-between;
-  align-items: center;
-  background: var(--dark-light);
-  border-radius: 999px;
-  padding: 16px 32px;
-  margin-top: 2rem;
-  margin-right: auto;
-  margin-left: auto;
-}
-
 .items {
   display: flex;
   gap: 3rem;
@@ -41,6 +22,35 @@ a {
   color: var(--light);
 }
 
+/* 🔴 NAVEGACION 🔴 */
+
+.navegacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--dark-light);
+  border-radius: 999px;
+  padding: 16px 32px;
+  margin-top: 2rem;
+  margin-right: auto;
+  margin-left: auto;
+  animation: subeNavegacion 700ms;
+  animation-delay: calc(500ms);
+}
+
+@keyframes subeNavegacion {
+  0% {
+    transform: translateY(1000%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* 🔴 CONTAINER 🔴 */
+
 .container {
   display: grid;
   justify-content: center;
@@ -48,8 +58,20 @@ a {
   gap: 0.5rem;
   margin-top: 0.5rem;
   height: 524px;
-  /* max-width: 1240px; */
   margin: 0.5rem auto;
+  animation: subeContainer 700ms;
+  animation-delay: calc(0.7s);
+}
+
+@keyframes subeContainer {
+  0% {
+    transform: translateY(15%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -58,6 +80,8 @@ a {
   }
 }
 
+/* 🔴 CONTAINER II 🔴 */
+
 .container-dos {
   display: grid;
   justify-content: center;
@@ -65,8 +89,9 @@ a {
   gap: 0.5rem;
   margin-top: 0.5rem;
   height: 524px;
-  /* max-width: 1240px; */
   margin: 0.5rem auto;
+  animation: subeContainer 700ms;
+  animation-delay: calc(0.7s);
 }
 
 @media (min-width: 1024px) {
@@ -94,7 +119,8 @@ a {
   white-space: nowrap;
 }
 
-/* ANIMACIONES IZQUIERDA */
+/* 🔴 ANIMACIONES ANCORES IZQUIERDA 🔴 */
+
 .ancores-left {
   background: var(--dark-light);
   padding: 8px 0;
@@ -108,14 +134,17 @@ a {
 
 @keyframes slideInFromLeft {
   0% {
-    transform: translateX(-600%);
+    transform: translateX(-800%);
+    opacity: 0;
   }
   100% {
     transform: translateX(0);
+    opacity: 1;
   }
 }
 
-/* ANIMACIONES DERECHA */
+/* 🔴 ANIMACIONES ANCORES DERECHA 🔴 */
+
 .ancores-right {
   background: var(--dark-light);
   padding: 8px 0;
@@ -129,14 +158,17 @@ a {
 
 @keyframes slideInFromRight {
   0% {
-    transform: translateX(600%);
+    transform: translateX(800%);
+    opacity: 0;
   }
   100% {
     transform: translateX(0);
+    opacity: 1;
   }
 }
 
-/* FOOTER */
+/* 🔴 FOOTER 🔴 */
+
 .footer {
   display: flex;
   justify-content: space-between;
@@ -150,17 +182,19 @@ a {
   margin-left: auto;
 }
 
-/* SCROLL */
+@media (max-width: 1024px) {
+  body {
+    margin: 1rem 2rem;
+  }
+}
+
+/* 🔴 SCROLL 🔴 */
 
 ::-webkit-scrollbar {
   width: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background:lightsalmon;
+  background: lightsalmon;
   border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
 }
