@@ -157,7 +157,7 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: salmon;
+  background:lightsalmon;
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
