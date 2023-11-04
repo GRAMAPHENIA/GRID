@@ -180,6 +180,8 @@ a {
   margin-bottom: 2rem;
   margin-right: auto;
   margin-left: auto;
+  animation: subeContainer 400ms;
+  animation-delay: calc(0.7s);
 }
 
 @media (max-width: 1024px) {
