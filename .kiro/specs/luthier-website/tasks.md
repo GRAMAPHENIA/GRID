@@ -30,7 +30,10 @@
   - Desarrollar ImagePlaceholder.astro con fondo zinc-900 e icono
   - _Requirements: 2.7, 5.3, 8.1, 3.4, 3.2_
 
-- [ ] 4. Configurar SEO y metadatos
+- [x] 4. Configurar SEO y metadatos
+
+
+
   - Implementar utilidad SEO con meta tags completos
   - Crear structured data JSON-LD para luthier/artesano
   - Configurar Open Graph tags para redes sociales

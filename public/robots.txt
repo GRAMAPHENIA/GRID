@@ -1,0 +1,39 @@
+# Robots.txt para Red Fang Luthier
+# Optimizado para indexación de motores de búsqueda
+
+User-agent: *
+Allow: /
+
+# Permitir acceso a recursos importantes
+Allow: /images/
+Allow: /icons/
+Allow: /*.css$
+Allow: /*.js$
+
+# Bloquear directorios privados y archivos sensibles
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /api/
+Disallow: /_astro/
+
+# Configuración específica para bots principales
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+# Sitemap
+Sitemap: https://redfangluthier.com/sitemap.xml
+
+# Información adicional
+# Host: redfangluthier.com

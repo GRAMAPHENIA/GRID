@@ -8,6 +8,14 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 ## [Unreleased]
 
 ### Agregado
+- Sistema SEO completo con utilidades avanzadas y meta tags optimizados
+- Generación dinámica de sitemap.xml con URLs estáticas y dinámicas
+- Archivo robots.txt optimizado para indexación de motores de búsqueda
+- Structured data JSON-LD para luthier, instrumentos y servicios
+- Utilidades para meta tags específicos por tipo de página
+- Sistema de validación SEO con reportes y debugging
+- Configuración completa de Open Graph y Twitter Cards
+- Extractor automático de palabras clave desde contenido
 - Layout base completo con estructura HTML semántica y SEO optimizado
 - Componente Header con navegación responsive y accesible
 - Componente Footer con enlaces de navegación e información de contacto
