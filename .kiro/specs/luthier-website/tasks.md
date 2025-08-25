@@ -2,18 +2,18 @@
 
 - [x] 1. Setup inicial del proyecto Astro
 
-
-
-
-
-
   - Inicializar proyecto Astro con TypeScript
   - Configurar Tailwind CSS con configuración personalizada
   - Configurar estructura de directorios según diseño
   - Migrar colores CSS existentes a Tailwind config
   - _Requirements: 1.1, 1.2, 1.3, 3.1, 3.5_
 
-- [ ] 2. Crear sistema de tipos TypeScript
+- [x] 2. Crear sistema de tipos TypeScript
+
+
+
+
+
   - Implementar interface Instrument con todas las propiedades
   - Implementar interface Service para servicios del luthier
   - Crear interface SEOData para metadatos

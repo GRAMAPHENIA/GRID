@@ -8,6 +8,14 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 ## [Unreleased]
 
 ### Agregado
+- Sistema completo de tipos TypeScript para el proyecto
+- Interface Instrument con especificaciones técnicas detalladas
+- Interface Service con categorías y rangos de precios
+- Interface SEOData con Open Graph y Twitter Cards
+- Tipos para formularios de contacto con validación
+- Tipos comunes y utilidades del sistema (paginación, filtros, navegación)
+- Archivo de ejemplos con casos de uso reales
+- Exportación centralizada de todos los tipos en index.ts
 - Archivos de steering para guiar el desarrollo del proyecto
 - Configuración de flujo de trabajo en español
 - Reglas para documentación y commits en español
