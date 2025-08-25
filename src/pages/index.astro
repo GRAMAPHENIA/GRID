@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { generateSEO } from '../utils/seo';
+
+const seo = generateSEO({
+  title: 'Inicio',
+  description: 'Bienvenido al taller de Red Fang Luthier - Constructor artesanal de instrumentos musicales',
+});
+---
+
+<BaseLayout seo={seo}>
+  <main class="min-h-screen px-4 lg:px-40">
+    <h1 class="text-4xl font-bold text-center py-8">Red Fang Luthier</h1>
+    <p class="text-center text-lg">Constructor artesanal de instrumentos musicales</p>
+  </main>
+</BaseLayout>

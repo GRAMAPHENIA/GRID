@@ -1,0 +1,56 @@
+---
+import '../styles/global.css';
+import type { SEOData } from '../types';
+
+export interface Props {
+  seo?: Partial<SEOData>;
+}
+
+const { seo = {} } = Astro.props;
+
+const {
+  title = 'Red Fang Luthier',
+  description = 'Constructor artesanal de instrumentos musicales',
+  keywords = ['luthier', 'guitarras', 'instrumentos', 'artesanal'],
+  ogImage,
+  canonical,
+} = seo;
+
+const canonicalURL = canonical || (Astro.site ? new URL(Astro.url.pathname, Astro.site) : Astro.url.href);
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords.join(', ')} />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/fonts/system-ui" as="font" type="font/woff2" crossorigin />
+  </head>
+  <body class="bg-dark text-light font-sans">
+    <slot />
+  </body>
+</html>

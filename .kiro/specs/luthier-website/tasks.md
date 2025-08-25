@@ -1,6 +1,12 @@
 # Implementation Plan - Red Fang Luthier Website
 
-- [ ] 1. Setup inicial del proyecto Astro
+- [x] 1. Setup inicial del proyecto Astro
+
+
+
+
+
+
   - Inicializar proyecto Astro con TypeScript
   - Configurar Tailwind CSS con configuración personalizada
   - Configurar estructura de directorios según diseño
