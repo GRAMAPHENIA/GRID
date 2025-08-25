@@ -8,6 +8,14 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 ## [Unreleased]
 
 ### Agregado
+- Layout base completo con estructura HTML semántica y SEO optimizado
+- Componente Header con navegación responsive y accesible
+- Componente Footer con enlaces de navegación e información de contacto
+- Componente ImagePlaceholder reutilizable con fondo zinc-900 e icono
+- Componente Navigation modular para breadcrumbs y navegación secundaria
+- BaseLayout mejorado con structured data JSON-LD y meta tags completos
+- Skip link para accesibilidad y soporte completo de teclado
+- Navegación móvil con menú hamburguesa y animaciones suaves
 - Sistema completo de tipos TypeScript para el proyecto
 - Interface Instrument con especificaciones técnicas detalladas
 - Interface Service con categorías y rangos de precios

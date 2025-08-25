@@ -1,0 +1,145 @@
+---
+// Header con navegación responsive y accesible
+import type { NavigationItem } from '../../types';
+
+// Elementos de navegación principal
+const navigationItems: NavigationItem[] = [
+  { label: 'Inicio', href: '/', active: Astro.url.pathname === '/' },
+  { label: 'Trabajos', href: '/works', active: Astro.url.pathname.startsWith('/works') },
+  { label: 'Servicios', href: '/services', active: Astro.url.pathname === '/services' },
+  { label: 'Acerca de', href: '/about', active: Astro.url.pathname === '/about' },
+  { label: 'Contacto', href: '/contact', active: Astro.url.pathname === '/contact' }
+];
+---
+
+<header class="bg-dark-light border-b border-zinc-800 sticky top-0 z-50 backdrop-blur-sm">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      
+      <!-- Logo -->
+      <div class="flex-shrink-0">
+        <a 
+          href="/" 
+          class="text-2xl font-bold text-accent hover:text-accent-light transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-light rounded-md px-2 py-1"
+          aria-label="Red Fang Luthier - Ir al inicio"
+        >
+          Red Fang
+        </a>
+      </div>
+
+      <!-- Navegación desktop -->
+      <nav class="hidden md:block" aria-label="Navegación principal">
+        <ul class="flex space-x-8">
+          {navigationItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-light ${
+                  item.active
+                    ? 'text-accent bg-zinc-800 border-b-2 border-accent'
+                    : 'text-light hover:text-accent hover:bg-zinc-800'
+                }`}
+                aria-current={item.active ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <!-- Botón menú móvil -->
+      <div class="md:hidden">
+        <button
+          type="button"
+          class="inline-flex items-center justify-center p-2 rounded-md text-light hover:text-accent hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-light transition-colors duration-200"
+          aria-controls="mobile-menu"
+          aria-expanded="false"
+          id="mobile-menu-button"
+        >
+          <span class="sr-only">Abrir menú principal</span>
+          <!-- Icono hamburguesa -->
+          <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <!-- Icono cerrar (oculto por defecto) -->
+          <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menú móvil (oculto por defecto) -->
+    <div class="md:hidden hidden" id="mobile-menu">
+      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-zinc-800">
+        {navigationItems.map((item) => (
+          <a
+            href={item.href}
+            class={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-light ${
+              item.active
+                ? 'text-accent bg-zinc-800 border-l-4 border-accent'
+                : 'text-light hover:text-accent hover:bg-zinc-800'
+            }`}
+            aria-current={item.active ? 'page' : undefined}
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Script para manejar el menú móvil
+  document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const hamburgerIcon = mobileMenuButton?.querySelector('svg:first-child');
+    const closeIcon = mobileMenuButton?.querySelector('svg:last-child');
+
+    if (mobileMenuButton && mobileMenu && hamburgerIcon && closeIcon) {
+      mobileMenuButton.addEventListener('click', () => {
+        const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+        
+        // Alternar visibilidad del menú
+        mobileMenu.classList.toggle('hidden');
+        
+        // Actualizar aria-expanded
+        mobileMenuButton.setAttribute('aria-expanded', (!isExpanded).toString());
+        
+        // Alternar iconos
+        if (isExpanded) {
+          hamburgerIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
+        } else {
+          hamburgerIcon.classList.add('hidden');
+          closeIcon.classList.remove('hidden');
+        }
+      });
+
+      // Cerrar menú al hacer clic en un enlace
+      const mobileLinks = mobileMenu.querySelectorAll('a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          mobileMenuButton.setAttribute('aria-expanded', 'false');
+          hamburgerIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
+        });
+      });
+
+      // Cerrar menú con tecla Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+          mobileMenu.classList.add('hidden');
+          mobileMenuButton.setAttribute('aria-expanded', 'false');
+          hamburgerIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
+          mobileMenuButton.focus();
+        }
+      });
+    }
+  });
+</script>

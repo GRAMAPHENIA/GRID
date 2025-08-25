@@ -1,0 +1,84 @@
+---
+// Componente de navegación modular para breadcrumbs y navegación secundaria
+import type { BreadcrumbItem } from '../../types';
+
+export interface Props {
+  breadcrumbs?: BreadcrumbItem[];
+  showBreadcrumbs?: boolean;
+  className?: string;
+}
+
+const { 
+  breadcrumbs = [], 
+  showBreadcrumbs = true,
+  className = ''
+} = Astro.props;
+
+// Generar breadcrumbs automáticamente si no se proporcionan
+const autoBreadcrumbs: BreadcrumbItem[] = breadcrumbs.length > 0 ? breadcrumbs : [
+  { label: 'Inicio', href: '/' },
+  ...(Astro.url.pathname !== '/' ? [
+    { 
+      label: Astro.url.pathname.split('/').filter(Boolean).pop()?.replace('-', ' ') || 'Página actual', 
+      current: true 
+    }
+  ] : [])
+];
+---
+
+{showBreadcrumbs && autoBreadcrumbs.length > 1 && (
+  <nav 
+    aria-label="Breadcrumb" 
+    class={`bg-dark-light border-b border-zinc-800 ${className}`}
+  >
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <ol class="flex items-center space-x-2 text-sm">
+        {autoBreadcrumbs.map((item, index) => (
+          <li class="flex items-center">
+            {index > 0 && (
+              <svg 
+                class="w-4 h-4 text-zinc-500 mx-2" 
+                fill="currentColor" 
+                viewBox="0 0 20 20" 
+                aria-hidden="true"
+              >
+                <path 
+                  fill-rule="evenodd" 
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" 
+                  clip-rule="evenodd" 
+                />
+              </svg>
+            )}
+            
+            {item.current ? (
+              <span 
+                class="text-accent font-medium capitalize" 
+                aria-current="page"
+              >
+                {item.label}
+              </span>
+            ) : (
+              <a 
+                href={item.href} 
+                class="text-zinc-300 hover:text-accent transition-colors duration-200 capitalize focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-light rounded-md px-1 py-1"
+              >
+                {item.label}
+              </a>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </nav>
+)}
+
+<style>
+  /* Estilos adicionales para navegación */
+  .nav-link {
+    @apply text-zinc-300 hover:text-accent transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-light rounded-md px-2 py-1;
+  }
+  
+  .nav-link-active {
+    @apply text-accent bg-zinc-800 border-b-2 border-accent;
+  }
+</style>

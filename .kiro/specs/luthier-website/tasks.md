@@ -20,7 +20,10 @@
   - Definir tipos para formularios de contacto
   - _Requirements: 1.3, 7.1, 7.2_
 
-- [ ] 3. Implementar layout base y componentes de UI fundamentales
+- [x] 3. Implementar layout base y componentes de UI fundamentales
+
+
+
   - Crear BaseLayout.astro con estructura HTML semántica completa
   - Implementar Header.astro con navegación responsive y accesible
   - Crear Footer.astro con enlaces y información de contacto
