@@ -7,6 +7,12 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ## [Unreleased]
 
+### Agregado
+- Archivos de steering para guiar el desarrollo del proyecto
+- Configuración de flujo de trabajo en español
+- Reglas para documentación y commits en español
+- Steering de producto, tecnología, estructura y workflow
+
 ### En Progreso
 - Implementación del sitio web completo siguiendo el spec creado
 - Sistema de portfolio para mostrar instrumentos musicales
