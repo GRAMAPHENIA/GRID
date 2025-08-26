@@ -8,11 +8,49 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 ## [Unreleased]
 
 ### En Progreso
-- Responsive design completo
 - Optimización de rendimiento y carga
 - Testing y validación
 - Build y deployment
 - Integración final y pulido
+
+## [0.3.5] - 2025-08-26 - CSS Limpiado + View Transitions Funcionales
+
+### Agregado
+- Transiciones de página ultra sutiles restauradas con View Transitions API
+- Animaciones de desvanecimiento gradual (0.15s) entre páginas
+- View transition names para header, footer y contenido principal
+- Reglas CSS para prevenir layout shift en navegación con font-weight consistente
+
+### Corregido
+- Layout shift eliminado en navegación usando color ochre en lugar de font-weight bold
+- Header simplificado manteniendo solo la corrección esencial del layout shift
+- Menú móvil revertido a versión simple con JavaScript básico
+- Links activos ahora usan text-ochre-600 y border-ochre-600 sin cambiar font-weight
+- Transiciones suaves restauradas sin afectar el diseño actual
+
+### Cambiado
+- Links activos en navegación desktop: color ochre en lugar de negro
+- Border inferior de links activos también en color ochre para consistencia
+- Menú móvil simplificado sin animaciones complejas innecesarias
+- Transiciones de página con fade-out/fade-in muy sutiles (95% opacity)
+
+### Revertido
+- Eliminados cambios innecesarios de responsive design que no solucionaban el problema original
+- Header restaurado a estructura simple manteniendo solo la corrección del layout shift
+- Menú móvil vuelto a implementación básica funcional
+
+### Corregido
+- Archivo CSS global completamente limpiado eliminando código duplicado
+- Error de sintaxis CSS "Missing opening {" solucionado
+- Código CSS mal formateado y selectores huérfanos eliminados
+- View Transitions ahora funcionan correctamente sin errores de compilación
+
+### Técnico
+- ViewTransitions component con fallback="animate" en BaseLayout
+- Animaciones CSS simplificadas para compatibilidad con Astro (200ms fade)
+- Font-weight forzado a 500 con !important para consistencia
+- Archivo CSS reducido de ~800 líneas a ~250 líneas manteniendo funcionalidad
+- Eliminado experimental flag innecesario (View Transitions ya son estables en Astro 5.x)
 
 ## [0.3.2] - 2025-08-26 - Transiciones Ultra Sutiles
 

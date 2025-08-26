@@ -99,6 +99,8 @@
   - Integrar información de contacto y ubicación
   - _Requirements: 2.3, 7.3, 5.1, 5.2_
 
+
+
 - [ ] 9. Optimizar accesibilidad completa
   - Implementar aria-labels en todos los componentes interactivos
   - Configurar navegación por teclado en Header y formularios
