@@ -1,44 +1,28 @@
-// Tipos para instrumentos musicales y especificaciones técnicas
-
-export type InstrumentType = 'guitar' | 'bass' | 'violin' | 'mandolin' | 'other';
-export type InstrumentStatus = 'available' | 'sold' | 'commission';
-
-export interface InstrumentSpecifications {
-  wood: string;
-  finish: string;
-  scale: string;
-  year: number;
-  // Especificaciones adicionales opcionales
-  strings?: number;
-  frets?: number;
-  pickups?: string;
-  bridge?: string;
-  tuners?: string;
-  nut?: string;
-  weight?: string;
-  dimensions?: {
-    length: string;
-    width: string;
-    depth: string;
-  };
-}
-
+// Tipos para instrumentos musicales del luthier
 export interface Instrument {
   id: string;
   name: string;
-  type: InstrumentType;
+  type: 'guitar' | 'bass' | 'violin' | 'mandolin' | 'other';
   description: string;
   images: string[];
-  specifications: InstrumentSpecifications;
-  status: InstrumentStatus;
+  specifications: {
+    wood: string;
+    finish: string;
+    scale: string;
+    year: number;
+    strings?: number;
+    pickups?: string;
+    hardware?: string;
+  };
+  status: 'available' | 'sold' | 'commission';
   featured: boolean;
   slug: string;
-  // Propiedades adicionales para mejor funcionalidad
   price?: number;
-  currency?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-  tags?: string[];
-  category?: string;
-  shortDescription?: string;
+  createdAt: Date;
+}
+
+export interface InstrumentFilter {
+  type?: Instrument['type'];
+  status?: Instrument['status'];
+  featured?: boolean;
 }

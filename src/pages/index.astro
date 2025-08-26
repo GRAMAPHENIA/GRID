@@ -1,16 +1,136 @@
 ---
+// Página de inicio con Hero section y SEO optimizado
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { generateSEO } from '../utils/seo';
+import Hero from '../components/sections/Hero.astro';
+import { generateHomeMetaTags } from '../utils/meta-tags';
+import { generateLuthierStructuredData } from '../utils/seo';
 
-const seo = generateSEO({
-  title: 'Inicio',
-  description: 'Bienvenido al taller de Red Fang Luthier - Constructor artesanal de instrumentos musicales',
-});
+// SEO optimizado para la página de inicio
+const seo = generateHomeMetaTags();
+
+// Structured data específico para la página de inicio
+const structuredData = generateLuthierStructuredData();
 ---
 
-<BaseLayout seo={seo}>
-  <main class="min-h-screen px-4 lg:px-40">
-    <h1 class="text-4xl font-bold text-center py-8">Red Fang Luthier</h1>
-    <p class="text-center text-lg">Constructor artesanal de instrumentos musicales</p>
-  </main>
+<BaseLayout seo={{ ...seo, structuredData }}>
+  <!-- Hero Section -->
+  <Hero />
+  
+  <!-- Sección de introducción -->
+  <section class="py-16 bg-dark-light">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto text-center space-y-8">
+        <h2 class="text-3xl md:text-4xl font-bold text-light">
+          Artesanía que Trasciende el Tiempo
+        </h2>
+        <p class="text-lg text-zinc-300 leading-relaxed">
+          En Red Fang Luthier, cada instrumento nace de la pasión por la música y el respeto por las técnicas tradicionales. 
+          Utilizamos maderas seleccionadas y métodos artesanales que han sido perfeccionados a lo largo de generaciones, 
+          creando instrumentos únicos que acompañarán a los músicos en su viaje artístico.
+        </p>
+        
+        <!-- Estadísticas -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+          <div class="text-center space-y-2">
+            <div class="text-4xl font-bold text-accent">10+</div>
+            <div class="text-zinc-400">Años de Experiencia</div>
+          </div>
+          <div class="text-center space-y-2">
+            <div class="text-4xl font-bold text-accent">100+</div>
+            <div class="text-zinc-400">Instrumentos Creados</div>
+          </div>
+          <div class="text-center space-y-2">
+            <div class="text-4xl font-bold text-accent">50+</div>
+            <div class="text-zinc-400">Clientes Satisfechos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Sección de servicios destacados -->
+  <section class="py-16 bg-dark">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-light mb-4">
+          Nuestros Servicios
+        </h2>
+        <p class="text-lg text-zinc-300 max-w-2xl mx-auto">
+          Desde la construcción personalizada hasta la restauración de instrumentos antiguos, 
+          ofrecemos servicios completos de luthería.
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Construcción -->
+        <div class="bg-dark-light rounded-3xl p-8 text-center space-y-4 hover:bg-zinc-800 transition-colors duration-300">
+          <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto">
+            <svg class="w-8 h-8 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-light">Construcción Personalizada</h3>
+          <p class="text-zinc-300">Instrumentos únicos diseñados según tus especificaciones y preferencias musicales.</p>
+          <a href="/services" class="inline-block text-accent hover:text-accent-light font-medium">
+            Saber más →
+          </a>
+        </div>
+        
+        <!-- Reparación -->
+        <div class="bg-dark-light rounded-3xl p-8 text-center space-y-4 hover:bg-zinc-800 transition-colors duration-300">
+          <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto">
+            <svg class="w-8 h-8 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-light">Reparación y Ajuste</h3>
+          <p class="text-zinc-300">Diagnóstico profesional y reparación de todo tipo de instrumentos de cuerda.</p>
+          <a href="/services" class="inline-block text-accent hover:text-accent-light font-medium">
+            Saber más →
+          </a>
+        </div>
+        
+        <!-- Restauración -->
+        <div class="bg-dark-light rounded-3xl p-8 text-center space-y-4 hover:bg-zinc-800 transition-colors duration-300">
+          <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto">
+            <svg class="w-8 h-8 text-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold text-light">Restauración Histórica</h3>
+          <p class="text-zinc-300">Devolvemos la vida a instrumentos antiguos respetando su valor histórico y sonoro.</p>
+          <a href="/services" class="inline-block text-accent hover:text-accent-light font-medium">
+            Saber más →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Call to Action final -->
+  <section class="py-16 bg-gradient-to-r from-accent to-accent-light">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">
+        ¿Listo para tu Instrumento Único?
+      </h2>
+      <p class="text-lg text-dark opacity-90 mb-8 max-w-2xl mx-auto">
+        Contacta conmigo para discutir tu proyecto. Cada instrumento es una colaboración entre artesano y músico.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a 
+          href="/contact"
+          class="inline-flex items-center justify-center px-8 py-4 bg-dark text-light font-semibold rounded-full hover:bg-dark-light transition-colors duration-300 focus:outline-none focus:ring-4 focus:ring-dark focus:ring-opacity-50"
+        >
+          Iniciar Proyecto
+        </a>
+        <a 
+          href="/works"
+          class="inline-flex items-center justify-center px-8 py-4 border-2 border-dark text-dark hover:bg-dark hover:text-light font-semibold rounded-full transition-colors duration-300 focus:outline-none focus:ring-4 focus:ring-dark focus:ring-opacity-50"
+        >
+          Ver Portfolio
+        </a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

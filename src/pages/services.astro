@@ -1,0 +1,56 @@
+---
+// Página de servicios del luthier Red Fang
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Services from '../components/sections/Services.astro';
+import { SERVICES_DATA } from '../data/services';
+import { SITE_CONFIG } from '../utils/constants';
+
+// Metadatos SEO para la página de servicios
+const seoData = {
+  title: `Servicios | ${SITE_CONFIG.name}`,
+  description: 'Construcción y reparación de guitarras con técnicas tradicionales de luthería.',
+  keywords: [
+    'construcción de guitarras',
+    'reparación de instrumentos',
+    'luthier',
+    'guitarras artesanales'
+  ],
+  canonical: `${SITE_CONFIG.url}/services`
+};
+---
+
+<BaseLayout seoData={seoData}>
+  <main class="min-h-screen bg-pure-white">
+    <!-- Hero section -->
+    <section class="pt-20 md:pt-24 pb-6 md:pb-8 px-4 bg-pure-white">
+      <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-4xl md:text-5xl lg:text-7xl font-bold text-almost-black mb-4 md:mb-6">
+          <span class="text-ochre-500">Servicios</span>
+        </h1>
+        <p class="text-lg md:text-xl text-neutral-600 max-w-2xl mx-auto">
+          Dos servicios especializados con técnicas tradicionales
+        </p>
+      </div>
+    </section>
+
+    <!-- Servicios -->
+    <Services services={SERVICES_DATA} />
+
+    <!-- Call to action -->
+    <section class="py-12 md:py-16 px-4 text-center bg-pure-white">
+      <div class="max-w-2xl mx-auto">
+        <p class="text-neutral-600 mb-6 text-base md:text-lg">
+          ¿Tienes un proyecto en mente?
+        </p>
+        <a 
+          href="/contact" 
+          class="inline-flex items-center gap-2 px-6 md:px-8 py-3 bg-almost-black text-pure-white font-semibold rounded-full hover:bg-neutral-800 transition-colors duration-300 text-sm md:text-base"
+        >
+          Contactar
+          <span>→</span>
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>

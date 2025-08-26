@@ -1,0 +1,99 @@
+---
+// Hero section con título, descripción y CTA
+import ImagePlaceholder from '../ui/ImagePlaceholder.astro';
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  ctaText?: string;
+  ctaHref?: string;
+  showImage?: boolean;
+}
+
+const {
+  title = 'Luthier',
+  subtitle = 'Artesano de Instrumentos',
+  description = 'Cada instrumento es una obra única, creada con técnicas tradicionales y materiales de la más alta calidad. Más de una década construyendo sueños musicales.',
+  ctaText = 'Ver Trabajos',
+  ctaHref = '/works',
+  showImage = true
+} = Astro.props;
+---
+
+<section class="bg-pure-white py-20 lg:py-32">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      
+      <!-- Contenido de texto -->
+      <div class="text-center lg:text-left space-y-8">
+        <!-- Título principal -->
+        <div class="space-y-4">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-almost-black leading-tight">
+            {title}
+          </h1>
+          <p class="text-xl md:text-2xl text-neutral-600 font-medium">
+            {subtitle}
+          </p>
+        </div>
+        
+        <!-- Descripción -->
+        <p class="text-lg text-neutral-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+          {description}
+        </p>
+        
+        <!-- Call to Action -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+          <a 
+            href={ctaHref}
+            class="px-8 py-3 bg-almost-black text-pure-white rounded-md font-medium hover:bg-neutral-800 transition-colors duration-200"
+          >
+            {ctaText}
+          </a>
+          
+          <a 
+            href="/contact"
+            class="px-8 py-3 border border-almost-black text-almost-black rounded-md font-medium hover:bg-almost-black hover:text-pure-white transition-colors duration-200"
+          >
+            Contactar
+          </a>
+        </div>
+        
+        <!-- Información adicional -->
+        <div class="flex flex-col sm:flex-row gap-6 text-sm text-neutral-500 justify-center lg:justify-start pt-4">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span>Madrid, España</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>+10 años de experiencia</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-neutral-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Garantía de calidad</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Imagen hero -->
+      {showImage && (
+        <div class="flex justify-center lg:justify-end">
+          <ImagePlaceholder 
+            aspectRatio="aspect-square"
+            alt="Instrumento artesanal Red Fang Luthier"
+            className="rounded-lg max-w-md w-full"
+          />
+        </div>
+      )}
+    </div>
+  </div>
+</section>
+

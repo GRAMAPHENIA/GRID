@@ -1,145 +1,275 @@
 ---
-// Header con navegación responsive y accesible
-import type { NavigationItem } from '../../types';
+// Header con navegación responsive usando solo HTML y CSS
+import type { NavigationItem } from "../../types";
 
 // Elementos de navegación principal
 const navigationItems: NavigationItem[] = [
-  { label: 'Inicio', href: '/', active: Astro.url.pathname === '/' },
-  { label: 'Trabajos', href: '/works', active: Astro.url.pathname.startsWith('/works') },
-  { label: 'Servicios', href: '/services', active: Astro.url.pathname === '/services' },
-  { label: 'Acerca de', href: '/about', active: Astro.url.pathname === '/about' },
-  { label: 'Contacto', href: '/contact', active: Astro.url.pathname === '/contact' }
+  { label: "Inicio", href: "/", active: Astro.url.pathname === "/" },
+  {
+    label: "Trabajos",
+    href: "/works",
+    active: Astro.url.pathname.startsWith("/works"),
+  },
+  {
+    label: "Servicios",
+    href: "/services",
+    active: Astro.url.pathname === "/services",
+  },
+  {
+    label: "Acerca de",
+    href: "/about",
+    active: Astro.url.pathname === "/about",
+  },
+  {
+    label: "Contacto",
+    href: "/contact",
+    active: Astro.url.pathname === "/contact",
+  },
 ];
 ---
 
-<header class="bg-dark-light border-b border-zinc-800 sticky top-0 z-50 backdrop-blur-sm">
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<header class="bg-neutral-50 border-b border-neutral-200 sticky top-0 z-50">
+  <!-- Checkbox oculto para controlar el menú móvil -->
+  <input type="checkbox" id="mobile-menu-toggle" class="hidden" />
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
-      
       <!-- Logo -->
       <div class="flex-shrink-0">
-        <a 
-          href="/" 
-          class="text-2xl font-bold text-accent hover:text-accent-light transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-light rounded-md px-2 py-1"
-          aria-label="Red Fang Luthier - Ir al inicio"
+        <a
+          href="/"
+          class="text-xl font-bold text-almost-black hover:text-neutral-700 transition-colors duration-200"
+          aria-label="Carpena Guitars - Ir al inicio"
         >
-          Red Fang
+          Carpena Guitars
         </a>
       </div>
 
       <!-- Navegación desktop -->
       <nav class="hidden md:block" aria-label="Navegación principal">
-        <ul class="flex space-x-8">
-          {navigationItems.map((item) => (
-            <li>
-              <a
-                href={item.href}
-                class={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-light ${
-                  item.active
-                    ? 'text-accent bg-zinc-800 border-b-2 border-accent'
-                    : 'text-light hover:text-accent hover:bg-zinc-800'
-                }`}
-                aria-current={item.active ? 'page' : undefined}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
+        <ul class="flex space-x-1">
+          {
+            navigationItems.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class={`px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+                    item.active
+                      ? "text-almost-black border-b-2 border-almost-black"
+                      : "text-neutral-700 hover:text-almost-black"
+                  }`}
+                  aria-current={item.active ? "page" : undefined}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </nav>
 
       <!-- Botón menú móvil -->
       <div class="md:hidden">
-        <button
-          type="button"
-          class="inline-flex items-center justify-center p-2 rounded-md text-light hover:text-accent hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-light transition-colors duration-200"
-          aria-controls="mobile-menu"
-          aria-expanded="false"
-          id="mobile-menu-button"
+        <label
+          for="mobile-menu-toggle"
+          class="mobile-menu-button p-2 text-neutral-700 hover:text-almost-black transition-colors duration-200 cursor-pointer"
+          aria-label="Abrir menú de navegación"
         >
-          <span class="sr-only">Abrir menú principal</span>
           <!-- Icono hamburguesa -->
-          <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-          <!-- Icono cerrar (oculto por defecto) -->
-          <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-    </div>
-
-    <!-- Menú móvil (oculto por defecto) -->
-    <div class="md:hidden hidden" id="mobile-menu">
-      <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 border-t border-zinc-800">
-        {navigationItems.map((item) => (
-          <a
-            href={item.href}
-            class={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-light ${
-              item.active
-                ? 'text-accent bg-zinc-800 border-l-4 border-accent'
-                : 'text-light hover:text-accent hover:bg-zinc-800'
-            }`}
-            aria-current={item.active ? 'page' : undefined}
+          <svg
+            class="h-5 w-5"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
           >
-            {item.label}
-          </a>
-        ))}
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </label>
       </div>
     </div>
   </div>
+
+  <!-- Overlay con glassmorphism -->
+  <div class="mobile-menu-overlay md:hidden"></div>
+
+  <!-- Menú móvil - posicionado absolutamente para evitar layout shift -->
+  <nav class="mobile-menu md:hidden" aria-label="Navegación móvil">
+    <!-- Botón cerrar dentro del sidebar -->
+    <div class="mobile-menu-header">
+      <label
+        for="mobile-menu-toggle"
+        class="close-button text-neutral-700 hover:text-almost-black transition-colors duration-200 cursor-pointer"
+        aria-label="Cerrar menú de navegación"
+      >
+        <svg
+          class="h-6 w-6"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </label>
+    </div>
+
+    <div class="mobile-menu-content">
+      {
+        navigationItems.map((item) => (
+          <a
+            href={item.href}
+            class={`block px-6 py-4 text-base font-medium transition-colors duration-200 ${
+              item.active
+                ? "text-almost-black bg-neutral-100 border-l-4 border-almost-black"
+                : "text-neutral-700 hover:text-almost-black hover:bg-neutral-100"
+            }`}
+            aria-current={item.active ? "page" : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </div>
+  </nav>
 </header>
 
-<script>
-  // Script para manejar el menú móvil
-  document.addEventListener('DOMContentLoaded', () => {
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const hamburgerIcon = mobileMenuButton?.querySelector('svg:first-child');
-    const closeIcon = mobileMenuButton?.querySelector('svg:last-child');
+<style>
+  /* Estilos para el menú móvil usando solo CSS */
 
-    if (mobileMenuButton && mobileMenu && hamburgerIcon && closeIcon) {
-      mobileMenuButton.addEventListener('click', () => {
-        const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-        
-        // Alternar visibilidad del menú
-        mobileMenu.classList.toggle('hidden');
-        
-        // Actualizar aria-expanded
-        mobileMenuButton.setAttribute('aria-expanded', (!isExpanded).toString());
-        
-        // Alternar iconos
-        if (isExpanded) {
-          hamburgerIcon.classList.remove('hidden');
-          closeIcon.classList.add('hidden');
-        } else {
-          hamburgerIcon.classList.add('hidden');
-          closeIcon.classList.remove('hidden');
-        }
-      });
+  /* Overlay con glassmorphism */
+  .mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-out;
+    z-index: 35;
+  }
 
-      // Cerrar menú al hacer clic en un enlace
-      const mobileLinks = mobileMenu.querySelectorAll('a');
-      mobileLinks.forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.add('hidden');
-          mobileMenuButton.setAttribute('aria-expanded', 'false');
-          hamburgerIcon.classList.remove('hidden');
-          closeIcon.classList.add('hidden');
-        });
-      });
+  /* Menú móvil - posicionado absolutamente para evitar layout shift */
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 100vh;
+    background: var(--pure-white);
+    border-left: 1px solid var(--neutral-200);
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-out;
+    z-index: 40;
+    overflow: visible;
+  }
 
-      // Cerrar menú con tecla Escape
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
-          mobileMenu.classList.add('hidden');
-          mobileMenuButton.setAttribute('aria-expanded', 'false');
-          hamburgerIcon.classList.remove('hidden');
-          closeIcon.classList.add('hidden');
-          mobileMenuButton.focus();
-        }
-      });
+  .mobile-menu-header {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 65px; /* Misma altura que el header principal */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 1rem;
+    border-bottom: 1px solid var(--neutral-200);
+    width: 100%;
+    background: var(--pure-white);
+  }
+
+  .close-button:focus {
+    outline: 2px solid var(--almost-black);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  .mobile-menu-content {
+    padding-top: 80px; /* Espacio para el header */
+    padding-bottom: 1rem;
+  }
+
+  /* Cuando el checkbox está marcado, mostrar el overlay */
+  #mobile-menu-toggle:checked ~ .mobile-menu-overlay {
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.3s ease-in;
+  }
+
+  /* Cuando el checkbox está marcado, mostrar el menú */
+  #mobile-menu-toggle:checked ~ .mobile-menu {
+    transform: translateX(0);
+    transition: transform 0.3s ease-in;
+  }
+
+  /* Mejorar la accesibilidad del botón */
+  .mobile-menu-button:focus {
+    outline: 2px solid var(--almost-black);
+    outline-offset: 2px;
+  }
+
+  /* Animación suave para los enlaces del menú */
+  .mobile-menu .mobile-menu-content a {
+    transform: translateX(20px);
+    opacity: 0;
+    transition: all 0.2s ease-out;
+  }
+
+  #mobile-menu-toggle:checked ~ .mobile-menu .mobile-menu-content a {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  /* Delays escalonados para los enlaces */
+  #mobile-menu-toggle:checked
+    ~ .mobile-menu
+    .mobile-menu-content
+    a:nth-child(1) {
+    transition-delay: 0.1s;
+  }
+  #mobile-menu-toggle:checked
+    ~ .mobile-menu
+    .mobile-menu-content
+    a:nth-child(2) {
+    transition-delay: 0.15s;
+  }
+  #mobile-menu-toggle:checked
+    ~ .mobile-menu
+    .mobile-menu-content
+    a:nth-child(3) {
+    transition-delay: 0.2s;
+  }
+  #mobile-menu-toggle:checked
+    ~ .mobile-menu
+    .mobile-menu-content
+    a:nth-child(4) {
+    transition-delay: 0.25s;
+  }
+  #mobile-menu-toggle:checked
+    ~ .mobile-menu
+    .mobile-menu-content
+    a:nth-child(5) {
+    transition-delay: 0.3s;
+  }
+
+  /* Responsive - en pantallas muy pequeñas, hacer el menú más ancho */
+  @media (max-width: 320px) {
+    .mobile-menu {
+      width: 100vw;
+      border-left: none;
     }
-  });
-</script>
+  }
+</style>

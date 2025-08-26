@@ -1,0 +1,292 @@
+---
+import type { Instrument } from '../../types/instrument';
+import ImagePlaceholder from '../ui/ImagePlaceholder.astro';
+
+interface Props {
+  instruments: Instrument[];
+  showFilters?: boolean;
+  title?: string;
+  description?: string;
+}
+
+const { 
+  instruments, 
+  showFilters = false, 
+  title = "Portfolio de Instrumentos",
+  description = "Descubre la colección de instrumentos artesanales creados por Luthier"
+} = Astro.props;
+
+// Función para formatear precio
+function formatPrice(price?: number): string {
+  if (!price) return 'Consultar precio';
+  return new Intl.NumberFormat('es-ES', {
+    style: 'currency',
+    currency: 'EUR'
+  }).format(price);
+}
+
+// Función para obtener el estado en español
+function getStatusText(status: Instrument['status']): string {
+  const statusMap = {
+    'available': 'Disponible',
+    'sold': 'Vendido',
+    'commission': 'Por encargo'
+  };
+  return statusMap[status];
+}
+
+// Función para obtener el tipo en español
+function getTypeText(type: Instrument['type']): string {
+  const typeMap = {
+    'guitar': 'Guitarra',
+    'bass': 'Bajo',
+    'violin': 'Violín',
+    'mandolin': 'Mandolina',
+    'other': 'Otro'
+  };
+  return typeMap[type];
+}
+---
+
+<section class="py-8 md:py-16 px-4 bg-pure-white">
+  <div class="max-w-7xl mx-auto">
+    <!-- Encabezado de la sección -->
+    <div class="text-center mb-8 md:mb-16">
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-almost-black mb-4 md:mb-6">
+        {title}
+      </h2>
+      <p class="text-lg md:text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
+        {description}
+      </p>
+    </div>
+
+    <!-- Filtros (opcional) -->
+    {showFilters && (
+      <div class="mb-8 md:mb-12 flex flex-wrap justify-center gap-2 md:gap-3">
+        <button 
+          class="filter-btn px-4 md:px-6 py-2 rounded-full border border-neutral-300 text-neutral-700 hover:border-almost-black hover:text-almost-black transition-all duration-200 active text-sm md:text-base"
+          data-filter="all"
+        >
+          Todos
+        </button>
+        <button 
+          class="filter-btn px-4 md:px-6 py-2 rounded-full border border-neutral-300 text-neutral-700 hover:border-almost-black hover:text-almost-black transition-all duration-200 text-sm md:text-base"
+          data-filter="guitar"
+        >
+          Guitarras
+        </button>
+        <button 
+          class="filter-btn px-4 md:px-6 py-2 rounded-full border border-neutral-300 text-neutral-700 hover:border-almost-black hover:text-almost-black transition-all duration-200 text-sm md:text-base"
+          data-filter="bass"
+        >
+          Bajos
+        </button>
+        <button 
+          class="filter-btn px-4 md:px-6 py-2 rounded-full border border-neutral-300 text-neutral-700 hover:border-almost-black hover:text-almost-black transition-all duration-200 text-sm md:text-base"
+          data-filter="violin"
+        >
+          Violines
+        </button>
+        <button 
+          class="filter-btn px-4 md:px-6 py-2 rounded-full border border-neutral-300 text-neutral-700 hover:border-almost-black hover:text-almost-black transition-all duration-200 text-sm md:text-base"
+          data-filter="mandolin"
+        >
+          Mandolinas
+        </button>
+      </div>
+    )}
+
+    <!-- Grid de instrumentos -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+      {instruments.map((instrument) => (
+        <article 
+          class="instrument-card bg-pure-white border border-neutral-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow duration-200 group"
+          data-type={instrument.type}
+          data-status={instrument.status}
+        >
+          <!-- Imagen del instrumento -->
+          <div class="aspect-[4/3] relative overflow-hidden bg-neutral-50">
+            {instrument.images.length > 0 ? (
+              <img
+                src={instrument.images[0]}
+                alt={`${instrument.name} - Instrumento artesanal por Red Fang Luthier`}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 lazy-image"
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              <ImagePlaceholder aspectRatio="aspect-[4/3]" className="rounded-none border-0" />
+            )}
+            
+            <!-- Badge de estado -->
+            <div class="absolute top-3 right-3">
+              <span class={`px-2 py-1 rounded-full text-xs font-medium ${
+                instrument.status === 'available' 
+                  ? 'bg-green-100 text-green-800 border border-green-200' 
+                  : instrument.status === 'sold'
+                  ? 'bg-red-100 text-red-800 border border-red-200'
+                  : 'bg-blue-100 text-blue-800 border border-blue-200'
+              }`}>
+                {getStatusText(instrument.status)}
+              </span>
+            </div>
+
+            <!-- Badge destacado -->
+            {instrument.featured && (
+              <div class="absolute top-3 left-3">
+                <span class="px-2 py-1 rounded-full text-xs font-medium bg-neutral-100 text-neutral-800 border border-neutral-200">
+                  Destacado
+                </span>
+              </div>
+            )}
+          </div>
+
+          <!-- Contenido de la tarjeta -->
+          <div class="p-4 md:p-6">
+            <!-- Tipo y año -->
+            <div class="flex justify-between items-center mb-2 md:mb-3">
+              <span class="text-neutral-600 font-medium text-xs md:text-sm uppercase tracking-wide">
+                {getTypeText(instrument.type)}
+              </span>
+              <span class="text-neutral-500 text-xs md:text-sm">
+                {instrument.specifications.year}
+              </span>
+            </div>
+
+            <!-- Nombre del instrumento -->
+            <h3 class="text-lg md:text-xl font-bold text-almost-black mb-2 md:mb-3 group-hover:text-neutral-700 transition-colors duration-300">
+              {instrument.name}
+            </h3>
+
+            <!-- Descripción -->
+            <p class="text-neutral-600 text-xs md:text-sm mb-3 md:mb-4 line-clamp-3 leading-relaxed">
+              {instrument.description}
+            </p>
+
+            <!-- Especificaciones destacadas -->
+            <div class="mb-4 md:mb-6 space-y-1 md:space-y-2">
+              <p class="text-neutral-500 text-xs">
+                <span class="font-medium text-neutral-700">Maderas:</span> {instrument.specifications.wood}
+              </p>
+              <p class="text-neutral-500 text-xs">
+                <span class="font-medium text-neutral-700">Acabado:</span> {instrument.specifications.finish}
+              </p>
+            </div>
+
+            <!-- Precio y enlace -->
+            <div class="flex justify-between items-center pt-3 md:pt-4 border-t border-neutral-100">
+              <span class="text-almost-black font-bold text-base md:text-lg">
+                {formatPrice(instrument.price)}
+              </span>
+              <a 
+                href={`/works/${instrument.slug}`}
+                class="px-3 md:px-4 py-2 bg-almost-black text-pure-white rounded-md text-xs md:text-sm font-medium hover:bg-neutral-800 transition-colors duration-200"
+                aria-label={`Ver detalles de ${instrument.name}`}
+              >
+                Ver detalles
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Mensaje si no hay instrumentos -->
+    {instruments.length === 0 && (
+      <div class="text-center py-16">
+        <p class="text-neutral-500 text-lg">
+          No se encontraron instrumentos que coincidan con los filtros seleccionados.
+        </p>
+      </div>
+    )}
+  </div>
+</section>
+
+<!-- Estilos para line-clamp -->
+<style>
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
+
+<!-- Script para filtros y lazy loading -->
+<script>
+  // Funcionalidad de filtros
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const instrumentCards = document.querySelectorAll('.instrument-card');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const filter = button.getAttribute('data-filter');
+        
+        // Actualizar botones activos
+        filterButtons.forEach(btn => btn.classList.remove('active', 'border-accent'));
+        button.classList.add('active', 'border-accent');
+
+        // Filtrar tarjetas
+        instrumentCards.forEach(card => {
+          const cardType = card.getAttribute('data-type');
+          const cardElement = card as HTMLElement;
+          
+          if (filter === 'all' || cardType === filter) {
+            cardElement.style.display = 'block';
+            cardElement.style.animation = 'fadeIn 0.5s ease-in-out';
+          } else {
+            cardElement.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Lazy loading para imágenes
+    const lazyImages = document.querySelectorAll('.lazy-image');
+    
+    if ('IntersectionObserver' in window) {
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target as HTMLImageElement;
+            img.src = img.src; // Trigger loading
+            img.classList.remove('lazy-image');
+            observer.unobserve(img);
+          }
+        });
+      });
+
+      lazyImages.forEach(img => imageObserver.observe(img));
+    }
+  });
+</script>
+
+<!-- Animaciones CSS -->
+<style>
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .filter-btn.active {
+    background-color: var(--almost-black);
+    color: white;
+    border-color: var(--almost-black);
+  }
+
+  .lazy-image {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .lazy-image.loaded {
+    opacity: 1;
+  }
+</style>

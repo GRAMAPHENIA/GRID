@@ -41,7 +41,10 @@
   - Implementar sitemap.xml automático
   - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.6_
 
-- [ ] 5. Desarrollar página de inicio (Home)
+- [x] 5. Desarrollar página de inicio (Home)
+
+
+
   - Crear página index.astro con Hero section
   - Implementar Hero.astro con título, descripción y CTA
   - Migrar y adaptar animaciones CSS existentes a Tailwind
@@ -49,7 +52,15 @@
   - Optimizar para Core Web Vitals
   - _Requirements: 2.1, 3.3, 6.6, 7.4_
 
-- [ ] 6. Implementar sistema de portfolio/trabajos
+- [x] 6. Implementar sistema de portfolio/trabajos
+
+
+
+
+
+
+
+
   - Crear página works/index.astro con galería responsive
   - Desarrollar Portfolio.astro component con grid de instrumentos
   - Implementar páginas dinámicas [slug].astro para instrumentos individuales
@@ -57,7 +68,13 @@
   - Integrar lazy loading para imágenes del portfolio
   - _Requirements: 2.2, 7.1, 7.5, 6.2, 6.3_
 
-- [ ] 7. Desarrollar páginas de servicios y about
+- [x] 7. Desarrollar páginas de servicios y about
+
+
+
+
+
+
   - Crear services.astro con Services.astro component
   - Implementar cards de servicios (construcción, reparación, restauración)
   - Crear about.astro con información del luthier y proceso

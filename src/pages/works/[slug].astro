@@ -1,0 +1,367 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ImagePlaceholder from '../../components/ui/ImagePlaceholder.astro';
+import { getInstrumentBySlug, getInstruments } from '../../data/instruments';
+import type { GetStaticPaths } from 'astro';
+
+// Generar rutas estáticas para todos los instrumentos
+export const getStaticPaths: GetStaticPaths = () => {
+  const instruments = getInstruments();
+  
+  return instruments.map((instrument) => ({
+    params: { slug: instrument.slug },
+    props: { instrument }
+  }));
+};
+
+// Obtener el instrumento desde las props
+const { instrument } = Astro.props;
+
+if (!instrument) {
+  return Astro.redirect('/works');
+}
+
+// Función para formatear precio
+function formatPrice(price?: number): string {
+  if (!price) return 'Consultar precio';
+  return new Intl.NumberFormat('es-ES', {
+    style: 'currency',
+    currency: 'EUR'
+  }).format(price);
+}
+
+// Función para obtener el estado en español
+function getStatusText(status: string): string {
+  const statusMap = {
+    'available': 'Disponible',
+    'sold': 'Vendido',
+    'commission': 'Por encargo'
+  };
+  return statusMap[status] || status;
+}
+
+// Función para obtener el tipo en español
+function getTypeText(type: string): string {
+  const typeMap = {
+    'guitar': 'Guitarra',
+    'bass': 'Bajo',
+    'violin': 'Violín',
+    'mandolin': 'Mandolina',
+    'other': 'Otro'
+  };
+  return typeMap[type] || type;
+}
+
+// Obtener instrumentos relacionados (mismo tipo, excluyendo el actual)
+const relatedInstruments = getInstruments({ type: instrument.type })
+  .filter(i => i.id !== instrument.id)
+  .slice(0, 3);
+
+// Datos SEO para la página del instrumento
+const seoData = {
+  title: `${instrument.name} | Red Fang Luthier`,
+  description: `${instrument.description} Especificaciones: ${instrument.specifications.wood}. ${getStatusText(instrument.status)} por €${instrument.price}.`,
+  keywords: ['luthier', instrument.type, 'artesanal', 'Red Fang', instrument.name.toLowerCase()],
+  canonical: `/works/${instrument.slug}`,
+  ogImage: instrument.images[0] || '/images/og-default.jpg',
+  structuredData: {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": instrument.name,
+    "description": instrument.description,
+    "category": getTypeText(instrument.type),
+    "brand": {
+      "@type": "Brand",
+      "name": "Red Fang Luthier"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": instrument.price,
+      "priceCurrency": "EUR",
+      "availability": instrument.status === 'available' 
+        ? "https://schema.org/InStock" 
+        : "https://schema.org/OutOfStock",
+      "seller": {
+        "@type": "Person",
+        "name": "Red Fang Luthier"
+      }
+    },
+    "image": instrument.images,
+    "additionalProperty": [
+      {
+        "@type": "PropertyValue",
+        "name": "Maderas",
+        "value": instrument.specifications.wood
+      },
+      {
+        "@type": "PropertyValue", 
+        "name": "Acabado",
+        "value": instrument.specifications.finish
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Escala",
+        "value": instrument.specifications.scale
+      },
+      {
+        "@type": "PropertyValue",
+        "name": "Año de construcción",
+        "value": instrument.specifications.year.toString()
+      }
+    ]
+  }
+};
+---
+
+<BaseLayout seoData={seoData}>
+  <main class="min-h-screen bg-pure-white">
+    <!-- Breadcrumb navigation -->
+    <nav class="pt-24 pb-4 px-4" aria-label="Breadcrumb">
+      <div class="max-w-7xl mx-auto">
+        <ol class="flex items-center space-x-2 text-sm text-neutral-500">
+          <li>
+            <a href="/" class="hover:text-almost-black transition-colors duration-200">Inicio</a>
+          </li>
+          <li class="flex items-center">
+            <svg class="w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            <a href="/works" class="hover:text-almost-black transition-colors duration-200">Portfolio</a>
+          </li>
+          <li class="flex items-center">
+            <svg class="w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-almost-black font-medium" aria-current="page">{instrument.name}</span>
+          </li>
+        </ol>
+      </div>
+    </nav>
+
+    <!-- Contenido principal del instrumento -->
+    <section class="py-8 px-4">
+      <div class="max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <!-- Galería de imágenes -->
+          <div class="space-y-4">
+            <!-- Imagen principal -->
+            <div class="aspect-[4/3] rounded-3xl overflow-hidden bg-dark-light">
+              {instrument.images.length > 0 ? (
+                <img
+                  src={instrument.images[0]}
+                  alt={`${instrument.name} - Vista principal`}
+                  class="w-full h-full object-cover"
+                  id="main-image"
+                />
+              ) : (
+                <ImagePlaceholder aspectRatio="aspect-[4/3]" className="rounded-3xl" />
+              )}
+            </div>
+
+            <!-- Miniaturas -->
+            {instrument.images.length > 1 && (
+              <div class="grid grid-cols-4 gap-2">
+                {instrument.images.map((image, index) => (
+                  <button
+                    class={`aspect-square rounded-lg overflow-hidden border-2 transition-colors duration-300 ${
+                      index === 0 ? 'border-accent' : 'border-transparent hover:border-accent/50'
+                    }`}
+                    onclick={`changeMainImage('${image}', this)`}
+                    aria-label={`Ver imagen ${index + 1} de ${instrument.name}`}
+                  >
+                    <img
+                      src={image}
+                      alt={`${instrument.name} - Vista ${index + 1}`}
+                      class="w-full h-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <!-- Información del instrumento -->
+          <div class="space-y-6">
+            <!-- Header con tipo y estado -->
+            <div class="flex flex-wrap items-center gap-4">
+              <span class="px-3 py-1 bg-accent text-white rounded-full text-sm font-medium">
+                {getTypeText(instrument.type)}
+              </span>
+              <span class={`px-3 py-1 rounded-full text-sm font-medium ${
+                instrument.status === 'available' 
+                  ? 'bg-green-600 text-white' 
+                  : instrument.status === 'sold'
+                  ? 'bg-red-600 text-white'
+                  : 'bg-yellow-600 text-white'
+              }`}>
+                {getStatusText(instrument.status)}
+              </span>
+              {instrument.featured && (
+                <span class="px-3 py-1 bg-accent-light text-white rounded-full text-sm font-medium">
+                  Destacado
+                </span>
+              )}
+            </div>
+
+            <!-- Título y precio -->
+            <div>
+              <h1 class="text-4xl md:text-5xl font-bold text-light mb-4">
+                {instrument.name}
+              </h1>
+              <div class="text-3xl font-bold text-accent">
+                {formatPrice(instrument.price)}
+              </div>
+            </div>
+
+            <!-- Descripción -->
+            <div class="prose prose-invert max-w-none">
+              <p class="text-lg text-light/80 leading-relaxed">
+                {instrument.description}
+              </p>
+            </div>
+
+            <!-- Especificaciones técnicas -->
+            <div class="bg-dark-light rounded-2xl p-6">
+              <h2 class="text-2xl font-bold text-light mb-4">Especificaciones Técnicas</h2>
+              <dl class="space-y-3">
+                <div class="flex flex-col sm:flex-row sm:justify-between">
+                  <dt class="font-medium text-accent">Maderas:</dt>
+                  <dd class="text-light/80 sm:text-right">{instrument.specifications.wood}</dd>
+                </div>
+                <div class="flex flex-col sm:flex-row sm:justify-between">
+                  <dt class="font-medium text-accent">Acabado:</dt>
+                  <dd class="text-light/80 sm:text-right">{instrument.specifications.finish}</dd>
+                </div>
+                <div class="flex flex-col sm:flex-row sm:justify-between">
+                  <dt class="font-medium text-accent">Escala:</dt>
+                  <dd class="text-light/80 sm:text-right">{instrument.specifications.scale}</dd>
+                </div>
+                <div class="flex flex-col sm:flex-row sm:justify-between">
+                  <dt class="font-medium text-accent">Año:</dt>
+                  <dd class="text-light/80 sm:text-right">{instrument.specifications.year}</dd>
+                </div>
+                {instrument.specifications.strings && (
+                  <div class="flex flex-col sm:flex-row sm:justify-between">
+                    <dt class="font-medium text-accent">Cuerdas:</dt>
+                    <dd class="text-light/80 sm:text-right">{instrument.specifications.strings}</dd>
+                  </div>
+                )}
+                {instrument.specifications.pickups && (
+                  <div class="flex flex-col sm:flex-row sm:justify-between">
+                    <dt class="font-medium text-accent">Pastillas:</dt>
+                    <dd class="text-light/80 sm:text-right">{instrument.specifications.pickups}</dd>
+                  </div>
+                )}
+                {instrument.specifications.hardware && (
+                  <div class="flex flex-col sm:flex-row sm:justify-between">
+                    <dt class="font-medium text-accent">Hardware:</dt>
+                    <dd class="text-light/80 sm:text-right">{instrument.specifications.hardware}</dd>
+                  </div>
+                )}
+              </dl>
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="flex flex-col sm:flex-row gap-4">
+              {instrument.status === 'available' && (
+                <a 
+                  href="/contact"
+                  class="flex-1 px-8 py-3 bg-accent text-white rounded-full font-medium text-center hover:bg-accent-light transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark"
+                >
+                  Consultar Disponibilidad
+                </a>
+              )}
+              <a 
+                href="/contact"
+                class="flex-1 px-8 py-3 border border-accent text-accent rounded-full font-medium text-center hover:bg-accent hover:text-white transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark"
+              >
+                Más Información
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Instrumentos relacionados -->
+    {relatedInstruments.length > 0 && (
+      <section class="py-16 px-4 bg-dark-light">
+        <div class="max-w-7xl mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold text-light mb-8 text-center">
+            Otros {getTypeText(instrument.type)}s
+          </h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {relatedInstruments.map((related) => (
+              <article class="bg-dark rounded-3xl overflow-hidden hover:scale-105 transition-transform duration-300">
+                <div class="aspect-[4/3] relative">
+                  {related.images.length > 0 ? (
+                    <img
+                      src={related.images[0]}
+                      alt={`${related.name} - Instrumento relacionado`}
+                      class="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <ImagePlaceholder aspectRatio="aspect-[4/3]" className="rounded-none" />
+                  )}
+                </div>
+                <div class="p-6">
+                  <h3 class="text-xl font-bold text-light mb-2">
+                    {related.name}
+                  </h3>
+                  <p class="text-light/80 text-sm mb-4 line-clamp-2">
+                    {related.description}
+                  </p>
+                  <div class="flex justify-between items-center">
+                    <span class="text-accent font-bold">
+                      {formatPrice(related.price)}
+                    </span>
+                    <a 
+                      href={`/works/${related.slug}`}
+                      class="px-4 py-2 bg-accent text-white rounded-full text-sm font-medium hover:bg-accent-light transition-colors duration-300"
+                    >
+                      Ver detalles
+                    </a>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+  </main>
+</BaseLayout>
+
+<!-- Script para cambiar imagen principal -->
+<script>
+  function changeMainImage(imageSrc: string, button: HTMLButtonElement) {
+    const mainImage = document.getElementById('main-image') as HTMLImageElement;
+    if (mainImage) {
+      mainImage.src = imageSrc;
+    }
+    
+    // Actualizar botones activos
+    const thumbnails = button.parentElement?.querySelectorAll('button');
+    thumbnails?.forEach(thumb => {
+      thumb.classList.remove('border-accent');
+      thumb.classList.add('border-transparent');
+    });
+    
+    button.classList.remove('border-transparent');
+    button.classList.add('border-accent');
+  }
+
+  // Hacer la función global
+  (window as any).changeMainImage = changeMainImage;
+</script>
+
+<!-- Estilos adicionales -->
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

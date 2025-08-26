@@ -1,0 +1,146 @@
+---
+// Página "Acerca de" del luthier Red Fang
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ImagePlaceholder from '../components/ui/ImagePlaceholder.astro';
+import { SITE_CONFIG } from '../utils/constants';
+
+// Metadatos SEO para la página about
+const seoData = {
+  title: `Acerca de | ${SITE_CONFIG.name}`,
+  description: 'Luthier artesano especializado en construcción y reparación de guitarras con técnicas tradicionales.',
+  keywords: [
+    'luthier artesano',
+    'construcción artesanal',
+    'técnicas tradicionales',
+    'guitarras clásicas'
+  ],
+  canonical: `${SITE_CONFIG.url}/about`
+};
+---
+
+<BaseLayout seoData={seoData}>
+  <main class="min-h-screen bg-dark">
+    <!-- Hero section -->
+    <section class="pt-24 pb-16 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <!-- Contenido principal -->
+          <div>
+            <h1 class="text-5xl md:text-7xl font-bold text-light mb-6">
+              <span class="text-accent">Red Fang</span>
+            </h1>
+            <p class="text-xl text-light/80 leading-relaxed mb-8">
+              Luthier artesano especializado en la construcción y reparación de guitarras 
+              con técnicas tradicionales y más de 15 años de experiencia.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a 
+                href="/works" 
+                class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent hover:bg-accent-light text-dark font-semibold rounded-full transition-colors duration-300"
+              >
+                Ver Trabajos
+                <span>→</span>
+              </a>
+              <a 
+                href="/contact" 
+                class="inline-flex items-center justify-center gap-2 px-8 py-4 border-2 border-light/20 hover:border-accent text-light hover:text-accent font-semibold rounded-full transition-colors duration-300"
+              >
+                Contactar
+                <span>→</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Imagen del luthier -->
+          <div class="order-first lg:order-last">
+            <ImagePlaceholder 
+              aspectRatio="4/5"
+              className="rounded-3xl"
+              alt="Red Fang en su taller de luthería"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Historia -->
+    <section class="py-16 px-4 bg-dark-light/30">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold text-light mb-4">
+            Mi Historia
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <p class="text-light/80 leading-relaxed mb-6">
+              Mi fascinación por los instrumentos musicales comenzó en la adolescencia. 
+              No solo me enamoré del sonido, sino también de la artesanía detrás de cada detalle.
+            </p>
+            <p class="text-light/80 leading-relaxed">
+              Después de años tocando música, decidí adentrarme en la luthería, 
+              aprendiendo técnicas tradicionales transmitidas durante siglos.
+            </p>
+          </div>
+          <div>
+            <p class="text-light/80 leading-relaxed mb-6">
+              En 2008 establecí mi taller con la visión de crear instrumentos 
+              que poseyeran un alma sonora única.
+            </p>
+            <p class="text-light/80 leading-relaxed">
+              Hoy, después de más de 15 años, he creado instrumentos para 
+              músicos profesionales y coleccionistas de todo el mundo.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filosofía -->
+    <section class="py-16 px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold text-light mb-4">
+            Filosofía
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-dark-light rounded-3xl p-8">
+            <h3 class="text-xl font-bold text-light mb-4">Técnicas Tradicionales</h3>
+            <p class="text-light/80 leading-relaxed">
+              Utilizo métodos perfeccionados durante siglos. Las herramientas manuales 
+              y la paciencia son mis aliados para crear instrumentos con alma.
+            </p>
+          </div>
+
+          <div class="bg-dark-light rounded-3xl p-8">
+            <h3 class="text-xl font-bold text-light mb-4">Sonido Único</h3>
+            <p class="text-light/80 leading-relaxed">
+              Cada guitarra debe tener su propia voz. Trabajo meticulosamente 
+              para que cada instrumento tenga un sonido distintivo.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to action -->
+    <section class="py-16 px-4 text-center">
+      <div class="max-w-2xl mx-auto">
+        <p class="text-light/70 mb-6">
+          ¿Quieres conocer más sobre mi trabajo?
+        </p>
+        <a 
+          href="/contact" 
+          class="inline-flex items-center gap-2 px-8 py-3 bg-accent hover:bg-accent-light text-dark font-semibold rounded-full transition-colors duration-300"
+        >
+          Contactar
+          <span>→</span>
+        </a>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
