@@ -42,29 +42,37 @@ const currentYear = new Date().getFullYear();
       
       <!-- Información de la marca -->
       <div class="lg:col-span-2">
-        <h3 class="text-xl font-bold text-almost-black mb-4">Red Fang Luthier</h3>
+        <h3 class="text-xl font-bold text-almost-black mb-4">Carpena Guitars</h3>
         <p class="text-neutral-600 mb-6 max-w-md leading-relaxed">
-          Constructor artesanal de instrumentos musicales con más de una década de experiencia. 
+          Constructor de instrumentos musicales con más de una década de experiencia. 
           Cada instrumento es una obra única creada con técnicas tradicionales.
         </p>
-        <div class="space-y-2 text-sm text-neutral-500">
+        <address class="space-y-2 text-sm text-neutral-500 not-italic">
           <p>
             <span class="font-medium text-neutral-700">Email:</span> 
-            <a href="mailto:info@redfangluthier.com" class="text-almost-black hover:text-neutral-700 transition-colors duration-200">
-              info@redfangluthier.com
+            <a 
+              href="mailto:info@carpenaguitars.com" 
+              class="text-almost-black hover:text-neutral-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ochre-500 focus:ring-offset-2 rounded"
+              aria-label="Enviar email a info@carpenaguitars.com"
+            >
+              info@carpenaguitars.com
             </a>
           </p>
           <p>
             <span class="font-medium text-neutral-700">Teléfono:</span> 
-            <a href="tel:+34600123456" class="text-almost-black hover:text-neutral-700 transition-colors duration-200">
+            <a 
+              href="tel:+34600123456" 
+              class="text-almost-black hover:text-neutral-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ochre-500 focus:ring-offset-2 rounded"
+              aria-label="Llamar al +34 600 123 456"
+            >
               +34 600 123 456
             </a>
           </p>
           <p>
             <span class="font-medium text-neutral-700">Horario:</span> 
-            Lunes a Viernes: 9:00 - 18:00
+            <time>Lunes a Viernes: 9:00 - 18:00</time>
           </p>
-        </div>
+        </address>
       </div>
 
       <!-- Enlaces de navegación -->
@@ -76,7 +84,7 @@ const currentYear = new Date().getFullYear();
               <li>
                 <a
                   href={item.href}
-                  class="text-neutral-600 hover:text-almost-black transition-colors duration-200"
+                  class="text-neutral-600 hover:text-almost-black transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ochre-500 focus:ring-offset-2 rounded"
                 >
                   {item.label}
                 </a>
@@ -93,7 +101,7 @@ const currentYear = new Date().getFullYear();
           {socialLinks.map((social) => (
             <a
               href={social.href}
-              class="text-neutral-400 hover:text-almost-black transition-colors duration-200 p-2"
+              class="text-neutral-400 hover:text-almost-black transition-colors duration-200 p-2 rounded focus:outline-none focus:ring-2 focus:ring-ochre-500 focus:ring-offset-2"
               aria-label={social.ariaLabel}
             >
               <!-- Iconos SVG simples para redes sociales -->
@@ -121,19 +129,24 @@ const currentYear = new Date().getFullYear();
     <!-- Línea divisoria y copyright -->
     <div class="border-t border-neutral-200 mt-8 pt-8">
       <div class="flex flex-col md:flex-row justify-between items-center">
-        <p class="text-neutral-500 text-sm">
-          © {currentYear} Red Fang Luthier. Todos los derechos reservados.
-        </p>
+        <div class="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+          <p class="text-neutral-500 text-sm">
+            © {currentYear} Carpena Guitars. Todos los derechos reservados.
+          </p>
+          <span class="text-neutral-400 text-xs">
+            v0.3.0
+          </span>
+        </div>
         <div class="flex space-x-6 mt-4 md:mt-0">
           <a 
             href="/privacy" 
-            class="text-neutral-500 hover:text-almost-black text-sm transition-colors duration-200"
+            class="text-neutral-500 hover:text-almost-black text-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ochre-500 focus:ring-offset-2 rounded"
           >
             Política de Privacidad
           </a>
           <a 
             href="/terms" 
-            class="text-neutral-500 hover:text-almost-black text-sm transition-colors duration-200"
+            class="text-neutral-500 hover:text-almost-black text-sm transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ochre-500 focus:ring-offset-2 rounded"
           >
             Términos de Uso
           </a>

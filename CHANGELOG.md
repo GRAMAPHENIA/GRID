@@ -7,29 +7,54 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ## [Unreleased]
 
+### En Progreso
+- Optimización de rendimiento y carga
+- Responsive design completo
+- Testing y validación
+- Build y deployment
+- Integración final y pulido
+
+## [0.3.0] - 2025-08-26 - Sistema de Contacto y Accesibilidad
+
 ### Agregado
-- Navegación móvil completamente funcional con CSS puro (sin JavaScript)
-- Menú hamburguesa con overlay glassmorphism y sidebar deslizante
-- Transiciones suaves y animaciones para navegación móvil
-- Responsive design mejorado para móviles en todas las páginas
-- Corrección de marca de "Red Fang Luthier" a "Carpena Guitars"
-- Eliminación de la palabra "artesanal" del branding
-- Páginas de servicios y about completamente implementadas
-- Componente Services.astro con diseño micro-minimalista
-- Página services.astro simplificada con solo construcción y reparación
-- Página about.astro con historia y filosofía del luthier
-- Datos de servicios simplificados con información esencial
-- Iconografía SVG minimalista para servicios
-- Diseño de cards consistente con el portfolio
+- Sistema de contacto completo con formulario funcional
+- Página contact.astro con diseño minimalista consistente
+- Componente ContactForm.astro con validación client-side
+- Validación de campos en tiempo real con TypeScript
+- Estados de loading y success en formulario de contacto
+- Información de contacto, horarios y FAQ interactiva
+- Tipos TypeScript completos para sistema de contacto (contact.ts)
+- Accesibilidad completa WCAG 2.1 AA implementada
+- ARIA labels descriptivos en todos los componentes interactivos
+- Navegación por teclado completa en Header y formularios
+- Roles ARIA apropiados en secciones semánticas
+- Alt text descriptivo para todas las imágenes
+- Indicadores de foco visibles y claros con color ochre
+- Contraste de colores validado WCAG 2.1 AA
+- Skip links mejorados para accesibilidad
+- Anuncios a screen readers para cambios dinámicos
+- Tamaños mínimos de touch targets (44px) en móvil
+- Estados de error accesibles en formularios
+- HTML semántico con elementos address, time, nav
+- Soporte completo para prefers-reduced-motion
+- Número de versión en footer del sitio
 
 ### Corregido
-- Navegación móvil reescrita usando técnica de checkbox oculto
-- Menú hamburguesa funcional con transiciones CSS suaves
-- Layout shift eliminado en navegación móvil con posicionamiento fijo
-- Orden de @import en global.css para evitar warnings de PostCSS
-- Google Fonts import movido antes de Tailwind CSS import
-- Responsive design mejorado en páginas works y services
-- Consistencia de estilos entre secciones del sitio
+- Contraste de colores mejorado en todos los elementos de texto
+- Estados de foco consistentes con anillos personalizados
+- Navegación móvil con mejor accesibilidad por teclado
+- Mensajes de validación de formularios más claros
+- Iconos decorativos marcados con aria-hidden="true"
+- Enlaces con focus:ring-offset para mejor visibilidad
+- Botones de filtro con aria-pressed para estado actual
+- ImagePlaceholder con iconos SVG inline para mejor rendimiento
+
+### Técnico
+- Cumplimiento completo con estándares WCAG 2.1 AA
+- Validación de accesibilidad en todos los componentes
+- Mejoras de contraste y legibilidad
+- Navegación por teclado optimizada
+- Compatibilidad con lectores de pantalla
 - Sistema completo de portfolio/trabajos con galería responsive de instrumentos
 - Página works/index.astro con filtros por tipo de instrumento y estadísticas
 - Páginas dinámicas [slug].astro para instrumentos individuales con especificaciones técnicas

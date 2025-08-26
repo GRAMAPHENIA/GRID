@@ -62,37 +62,48 @@ function getTypeText(type: Instrument['type']): string {
 
     <!-- Filtros (opcional) -->
     {showFilters && (
-      <div class="mb-8 md:mb-12 flex flex-wrap justify-center gap-2 md:gap-3">
-        <button 
-          class="filter-btn px-4 md:px-6 py-2 rounded-full border border-neutral-300 text-neutral-700 hover:border-almost-black hover:text-almost-black transition-all duration-200 active text-sm md:text-base"
-          data-filter="all"
-        >
-          Todos
-        </button>
-        <button 
-          class="filter-btn px-4 md:px-6 py-2 rounded-full border border-neutral-300 text-neutral-700 hover:border-almost-black hover:text-almost-black transition-all duration-200 text-sm md:text-base"
-          data-filter="guitar"
-        >
-          Guitarras
-        </button>
-        <button 
-          class="filter-btn px-4 md:px-6 py-2 rounded-full border border-neutral-300 text-neutral-700 hover:border-almost-black hover:text-almost-black transition-all duration-200 text-sm md:text-base"
-          data-filter="bass"
-        >
-          Bajos
-        </button>
-        <button 
-          class="filter-btn px-4 md:px-6 py-2 rounded-full border border-neutral-300 text-neutral-700 hover:border-almost-black hover:text-almost-black transition-all duration-200 text-sm md:text-base"
-          data-filter="violin"
-        >
-          Violines
-        </button>
-        <button 
-          class="filter-btn px-4 md:px-6 py-2 rounded-full border border-neutral-300 text-neutral-700 hover:border-almost-black hover:text-almost-black transition-all duration-200 text-sm md:text-base"
-          data-filter="mandolin"
-        >
-          Mandolinas
-        </button>
+      <div class="mb-8 md:mb-12" role="group" aria-label="Filtros de instrumentos">
+        <div class="flex flex-wrap justify-center gap-2 md:gap-3">
+          <button 
+            class="filter-btn px-4 md:px-6 py-2 rounded-full border border-neutral-300 text-neutral-700 hover:border-almost-black hover:text-almost-black transition-all duration-200 active text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-ochre-500 focus:ring-offset-2"
+            data-filter="all"
+            aria-pressed="true"
+            aria-describedby="filter-description"
+          >
+            Todos
+          </button>
+          <button 
+            class="filter-btn px-4 md:px-6 py-2 rounded-full border border-neutral-300 text-neutral-700 hover:border-almost-black hover:text-almost-black transition-all duration-200 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-ochre-500 focus:ring-offset-2"
+            data-filter="guitar"
+            aria-pressed="false"
+          >
+            Guitarras
+          </button>
+          <button 
+            class="filter-btn px-4 md:px-6 py-2 rounded-full border border-neutral-300 text-neutral-700 hover:border-almost-black hover:text-almost-black transition-all duration-200 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-ochre-500 focus:ring-offset-2"
+            data-filter="bass"
+            aria-pressed="false"
+          >
+            Bajos
+          </button>
+          <button 
+            class="filter-btn px-4 md:px-6 py-2 rounded-full border border-neutral-300 text-neutral-700 hover:border-almost-black hover:text-almost-black transition-all duration-200 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-ochre-500 focus:ring-offset-2"
+            data-filter="violin"
+            aria-pressed="false"
+          >
+            Violines
+          </button>
+          <button 
+            class="filter-btn px-4 md:px-6 py-2 rounded-full border border-neutral-300 text-neutral-700 hover:border-almost-black hover:text-almost-black transition-all duration-200 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-ochre-500 focus:ring-offset-2"
+            data-filter="mandolin"
+            aria-pressed="false"
+          >
+            Mandolinas
+          </button>
+        </div>
+        <div id="filter-description" class="sr-only">
+          Usa estos botones para filtrar los instrumentos por tipo. El filtro activo se indica visualmente y con el estado aria-pressed.
+        </div>
       </div>
     )}
 
@@ -109,13 +120,17 @@ function getTypeText(type: Instrument['type']): string {
             {instrument.images.length > 0 ? (
               <img
                 src={instrument.images[0]}
-                alt={`${instrument.name} - Instrumento artesanal por Red Fang Luthier`}
+                alt={`${instrument.name} - ${getTypeText(instrument.type)} artesanal construida por Carpena Guitars en ${instrument.specifications.year}, con maderas de ${instrument.specifications.wood} y acabado ${instrument.specifications.finish}`}
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 lazy-image"
                 loading="lazy"
                 decoding="async"
               />
             ) : (
-              <ImagePlaceholder aspectRatio="aspect-[4/3]" className="rounded-none border-0" />
+              <ImagePlaceholder 
+                aspectRatio="aspect-[4/3]" 
+                className="rounded-none border-0"
+                alt={`Imagen de ${instrument.name} - ${getTypeText(instrument.type)} artesanal por Carpena Guitars`}
+              />
             )}
             
             <!-- Badge de estado -->
@@ -180,8 +195,8 @@ function getTypeText(type: Instrument['type']): string {
               </span>
               <a 
                 href={`/works/${instrument.slug}`}
-                class="px-3 md:px-4 py-2 bg-almost-black text-pure-white rounded-md text-xs md:text-sm font-medium hover:bg-neutral-800 transition-colors duration-200"
-                aria-label={`Ver detalles de ${instrument.name}`}
+                class="px-3 md:px-4 py-2 bg-almost-black text-pure-white rounded-md text-xs md:text-sm font-medium hover:bg-neutral-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ochre-500 focus:ring-offset-2"
+                aria-label={`Ver detalles completos de ${instrument.name}, ${getTypeText(instrument.type)} de ${instrument.specifications.year} con precio ${formatPrice(instrument.price)}`}
               >
                 Ver detalles
               </a>
@@ -223,9 +238,16 @@ function getTypeText(type: Instrument['type']): string {
       button.addEventListener('click', () => {
         const filter = button.getAttribute('data-filter');
         
-        // Actualizar botones activos
-        filterButtons.forEach(btn => btn.classList.remove('active', 'border-accent'));
+        // Actualizar botones activos y aria-pressed
+        filterButtons.forEach(btn => {
+          btn.classList.remove('active', 'border-accent');
+          btn.setAttribute('aria-pressed', 'false');
+        });
         button.classList.add('active', 'border-accent');
+        button.setAttribute('aria-pressed', 'true');
+
+        // Contar instrumentos visibles
+        let visibleCount = 0;
 
         // Filtrar tarjetas
         instrumentCards.forEach(card => {
@@ -235,12 +257,31 @@ function getTypeText(type: Instrument['type']): string {
           if (filter === 'all' || cardType === filter) {
             cardElement.style.display = 'block';
             cardElement.style.animation = 'fadeIn 0.5s ease-in-out';
+            visibleCount++;
           } else {
             cardElement.style.display = 'none';
           }
         });
+
+        // Anunciar cambios a screen readers
+        const announcement = `Mostrando ${visibleCount} instrumentos${filter !== 'all' ? ` de tipo ${button.textContent}` : ''}`;
+        announceToScreenReader(announcement);
       });
     });
+
+    // Función para anunciar cambios a screen readers
+    function announceToScreenReader(message: string) {
+      const announcement = document.createElement('div');
+      announcement.setAttribute('aria-live', 'polite');
+      announcement.setAttribute('aria-atomic', 'true');
+      announcement.className = 'sr-only';
+      announcement.textContent = message;
+      document.body.appendChild(announcement);
+      
+      setTimeout(() => {
+        document.body.removeChild(announcement);
+      }, 1000);
+    }
 
     // Lazy loading para imágenes
     const lazyImages = document.querySelectorAll('.lazy-image');

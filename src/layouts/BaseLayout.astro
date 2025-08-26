@@ -125,11 +125,11 @@ const finalStructuredData = structuredData || defaultStructuredData;
     <meta name="generator" content={Astro.generator} />
   </head>
   
-  <body class={`bg-dark text-light font-sans antialiased min-h-screen flex flex-col ${pageClass}`}>
+  <body class={`bg-pure-white text-almost-black font-sans antialiased min-h-screen flex flex-col ${pageClass}`}>
     <!-- Skip to main content para accesibilidad -->
     <a 
       href="#main-content" 
-      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-accent text-dark px-4 py-2 rounded-md font-medium z-50 focus:outline-none focus:ring-2 focus:ring-accent-light"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-ochre-600 text-pure-white px-4 py-2 rounded-md font-medium z-50 focus:outline-none focus:ring-2 focus:ring-ochre-500 focus:ring-offset-2"
     >
       Saltar al contenido principal
     </a>
@@ -138,7 +138,7 @@ const finalStructuredData = structuredData || defaultStructuredData;
     {includeHeader && <Header />}
     
     <!-- Contenido principal -->
-    <main id="main-content" class="flex-1" role="main">
+    <main id="main-content" class="flex-1">
       <slot />
     </main>
     

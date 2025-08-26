@@ -53,9 +53,9 @@ const navigationItems: NavigationItem[] = [
               <li>
                 <a
                   href={item.href}
-                  class={`px-4 py-2 text-sm font-medium transition-colors duration-200 ${
+                  class={`px-4 py-2 text-sm font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ochre-500 focus:ring-offset-2 relative ${
                     item.active
-                      ? "text-almost-black border-b-2 border-almost-black"
+                      ? "text-almost-black border-b-2 border-almost-black mb-[-1px]"
                       : "text-neutral-700 hover:text-almost-black"
                   }`}
                   aria-current={item.active ? "page" : undefined}
@@ -72,8 +72,9 @@ const navigationItems: NavigationItem[] = [
       <div class="md:hidden">
         <label
           for="mobile-menu-toggle"
-          class="mobile-menu-button p-2 text-neutral-700 hover:text-almost-black transition-colors duration-200 cursor-pointer"
+          class="mobile-menu-button p-2 text-neutral-700 hover:text-almost-black transition-colors duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-ochre-500 focus:ring-offset-2 rounded"
           aria-label="Abrir menú de navegación"
+          tabindex="0"
         >
           <!-- Icono hamburguesa -->
           <svg
@@ -82,6 +83,7 @@ const navigationItems: NavigationItem[] = [
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
+            aria-hidden="true"
           >
             <path
               stroke-linecap="round"
@@ -103,8 +105,9 @@ const navigationItems: NavigationItem[] = [
     <div class="mobile-menu-header">
       <label
         for="mobile-menu-toggle"
-        class="close-button text-neutral-700 hover:text-almost-black transition-colors duration-200 cursor-pointer"
+        class="close-button text-neutral-700 hover:text-almost-black transition-colors duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-ochre-500 focus:ring-offset-2 rounded"
         aria-label="Cerrar menú de navegación"
+        tabindex="0"
       >
         <svg
           class="h-6 w-6"
@@ -112,6 +115,7 @@ const navigationItems: NavigationItem[] = [
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
+          aria-hidden="true"
         >
           <path
             stroke-linecap="round"
@@ -127,7 +131,7 @@ const navigationItems: NavigationItem[] = [
         navigationItems.map((item) => (
           <a
             href={item.href}
-            class={`block px-6 py-4 text-base font-medium transition-colors duration-200 ${
+            class={`block px-6 py-4 text-base font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-ochre-500 focus:ring-offset-2 focus:ring-offset-pure-white ${
               item.active
                 ? "text-almost-black bg-neutral-100 border-l-4 border-almost-black"
                 : "text-neutral-700 hover:text-almost-black hover:bg-neutral-100"

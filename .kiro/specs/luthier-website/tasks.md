@@ -81,11 +81,18 @@
   - Integrar iconografía apropiada para cada servicio
   - _Requirements: 2.5, 7.2, 7.4_
 
-- [ ] 8. Implementar sistema de contacto
+- [x] 8. Implementar sistema de contacto
+
+
+
+
   - Crear contact.astro con formulario funcional
   - Desarrollar ContactForm.astro con validación client-side
   - Implementar validación de campos con TypeScript
   - Configurar estados de loading y success del formulario
+
+
+
   - Integrar información de contacto y ubicación
   - _Requirements: 2.3, 7.3, 5.1, 5.2_
 
