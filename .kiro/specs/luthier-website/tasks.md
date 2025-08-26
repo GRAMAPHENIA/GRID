@@ -93,6 +93,9 @@
 
 
 
+
+
+
   - Integrar información de contacto y ubicación
   - _Requirements: 2.3, 7.3, 5.1, 5.2_
 

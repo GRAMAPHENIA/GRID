@@ -281,6 +281,44 @@ nav a[aria-current="page"] {
   }
 }
 
+/* View Transitions muy sutiles */
+@view-transition {
+  navigation: auto;
+}
+
+/* Mantener header y footer fijos durante transiciones */
+header {
+  view-transition-name: header;
+}
+
+footer {
+  view-transition-name: footer;
+}
+
+::view-transition-old(header),
+::view-transition-new(header),
+::view-transition-old(footer),
+::view-transition-new(footer) {
+  animation: none;
+}
+
+/* Transición global muy sutil para todos los elementos */
+* {
+  transition: opacity 0.15s ease-out;
+}
+
+/* Respeto por reduced motion en view transitions */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+  
+  * {
+    transition: none !important;
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

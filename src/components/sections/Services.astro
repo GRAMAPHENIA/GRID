@@ -1,99 +1,121 @@
 ---
-// Componente de sección de servicios del luthier
-
+// Componente de servicios del luthier
 import type { Service } from '../../types/service';
 
-interface Props {
+export interface Props {
   services: Service[];
+  title?: string;
+  description?: string;
 }
 
-const { services } = Astro.props;
+const { 
+  services, 
+  title = "Servicios Especializados",
+  description = "Técnicas tradicionales de luthería con más de 15 años de experiencia"
+} = Astro.props;
 
-// Función para formatear el precio mínimo
-function formatPrice(service: Service): string {
-  if (!service.priceRange) return 'Consultar';
-  const { min, currency = 'EUR' } = service.priceRange;
-  const symbol = currency === 'EUR' ? '€' : currency;
-  return `Desde ${min}${symbol}`;
-}
-
-// SVG Icons minimalistas en color neutro
-const constructionIcon = `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#737373" stroke-width="1.5"><path d="M12 2L2 7v10c0 5.55 3.84 10 9 10s9-4.45 9-10V7L12 2z"/><path d="M12 22V12"/><path d="M8 15l4-4 4 4"/></svg>`;
-
-const repairIcon = `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#737373" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>`;
-
-function getServiceIcon(iconName: string): string {
-  const icons: Record<string, string> = {
-    'construction': constructionIcon,
-    'repair': repairIcon
+// Función para obtener el icono SVG según el tipo
+function getServiceIcon(iconType: string) {
+  const icons = {
+    construction: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+    </svg>`,
+    repair: `<svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+    </svg>`
   };
-  return icons[iconName] || constructionIcon;
+  return icons[iconType] || icons.construction;
 }
 ---
 
-<section class="py-8 md:py-16 px-4 bg-pure-white">
-  <div class="max-w-4xl mx-auto">
-    <!-- Grid de servicios -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-      {services.map((service) => (
-        <article class="bg-pure-white border border-neutral-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow duration-200 group">
-          <!-- Contenido de la tarjeta -->
-          <div class="p-6 md:p-8">
-            <!-- Icono y categoría -->
-            <div class="flex justify-between items-start mb-4">
-              <div class="flex items-center gap-2 md:gap-3">
-                <div class="flex-shrink-0" set:html={getServiceIcon(service.icon)} />
-                <span class="text-neutral-600 font-medium text-xs md:text-sm uppercase tracking-wide">
-                  {service.category === 'construction' ? 'Construcción' : 'Reparación'}
-                </span>
-              </div>
-            </div>
+<section class="py-12 md:py-16 px-4">
+  <div class="max-w-6xl mx-auto">
+    
+    <!-- Encabezado de sección -->
+    {(title || description) && (
+      <div class="text-center mb-12 md:mb-16">
+        {title && (
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-almost-black mb-4 md:mb-6">
+            {title}
+          </h2>
+        )}
+        {description && (
+          <p class="text-lg md:text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
+            {description}
+          </p>
+        )}
+      </div>
+    )}
 
-            <!-- Nombre del servicio -->
-            <h3 class="text-xl md:text-2xl font-bold text-almost-black mb-3 md:mb-4 group-hover:text-neutral-700 transition-colors duration-300">
+    <!-- Grid de servicios -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+      {services.map((service) => (
+        <article class="bg-neutral-50 rounded-2xl p-6 md:p-8 border border-neutral-200 hover:shadow-lg transition-shadow duration-300">
+          
+          <!-- Icono del servicio -->
+          <div class="w-16 h-16 bg-ochre-100 rounded-xl flex items-center justify-center mb-6">
+            <div class="w-8 h-8 text-ochre-600" set:html={getServiceIcon(service.icon)} />
+          </div>
+
+          <!-- Contenido del servicio -->
+          <div class="space-y-4">
+            <h3 class="text-xl md:text-2xl font-bold text-almost-black">
               {service.name}
             </h3>
-
-            <!-- Descripción -->
-            <p class="text-neutral-600 mb-4 md:mb-6 leading-relaxed text-sm md:text-base">
+            
+            <p class="text-neutral-600 leading-relaxed">
               {service.description}
             </p>
 
-            <!-- Información básica -->
-            <div class="mb-4 md:mb-6 space-y-1 md:space-y-2">
-              <p class="text-neutral-500 text-xs md:text-sm">
-                <span class="font-medium text-neutral-700">Duración:</span> {service.duration}
-              </p>
-              <p class="text-neutral-500 text-xs md:text-sm">
-                <span class="font-medium text-neutral-700">Precio:</span> {formatPrice(service)}
-              </p>
-            </div>
-
-            <!-- Tags -->
+            <!-- Tags del servicio -->
             {service.tags && service.tags.length > 0 && (
-              <div class="flex flex-wrap gap-1.5 md:gap-2 mb-4 md:mb-6">
+              <div class="flex flex-wrap gap-2 mt-4">
                 {service.tags.map((tag) => (
-                  <span class="px-2 md:px-3 py-1 bg-neutral-100 text-neutral-700 text-xs rounded-full border border-neutral-200">
+                  <span class="px-3 py-1 bg-ochre-100 text-ochre-700 text-xs font-medium rounded-full">
                     {tag}
                   </span>
                 ))}
               </div>
             )}
 
-            <!-- Botón consultar -->
-            <div class="pt-3 md:pt-4 border-t border-neutral-100">
-              <a 
-                href="/contact" 
-                class="inline-flex items-center gap-2 px-4 md:px-6 py-2 bg-almost-black text-pure-white rounded-full font-medium hover:bg-neutral-800 transition-colors duration-200 text-sm"
-                aria-label={`Consultar sobre ${service.name}`}
-              >
-                Consultar
-                <span class="text-sm">→</span>
-              </a>
+            <!-- Precio y tiempo estimado -->
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-4 mt-6 border-t border-neutral-200">
+              {service.priceRange && (
+                <div class="mb-2 sm:mb-0">
+                  <span class="text-sm text-neutral-500">Desde</span>
+                  <span class="text-lg font-semibold text-almost-black ml-1">
+                    €{service.priceRange.min}
+                  </span>
+                </div>
+              )}
+              
+              {service.duration && (
+                <div class="text-sm text-neutral-500">
+                  <span class="font-medium">Tiempo:</span> {service.duration}
+                </div>
+              )}
             </div>
           </div>
         </article>
       ))}
+    </div>
+
+    <!-- Call to action -->
+    <div class="text-center mt-12 md:mt-16">
+      <p class="text-neutral-600 mb-6 text-base md:text-lg">
+        ¿Necesitas más información sobre algún servicio?
+      </p>
+      <a 
+        href="/contact" 
+        class="inline-flex items-center gap-2 px-6 md:px-8 py-3 bg-almost-black text-pure-white font-semibold rounded-full hover:bg-neutral-800 transition-colors duration-300 text-sm md:text-base focus:outline-none focus:ring-4 focus:ring-neutral-300"
+        aria-label="Contactar para consultar servicios"
+      >
+        Consultar Servicios
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </a>
     </div>
   </div>
 </section>

@@ -8,11 +8,62 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 ## [Unreleased]
 
 ### En Progreso
-- Optimización de rendimiento y carga
 - Responsive design completo
+- Optimización de rendimiento y carga
 - Testing y validación
 - Build y deployment
 - Integración final y pulido
+
+## [0.3.2] - 2025-08-26 - Transiciones Ultra Sutiles
+
+### Agregado
+- Transiciones de página ultra sutiles con desvanecimiento gradual muy suave
+- Animaciones CSS personalizadas minimalistas (600ms con cubic-bezier optimizado)
+- Header y footer completamente fijos durante transiciones para continuidad visual
+- Soporte mejorado para prefers-reduced-motion con fallbacks instantáneos
+- Timing function ultra suave: cubic-bezier(0.23, 1, 0.32, 1) para curva natural
+
+### Cambiado
+- Transiciones completamente rediseñadas: solo fade con movimiento imperceptible (3px)
+- Eliminadas todas las animaciones complejas de slide, scale y transform
+- Duración optimizada a 600ms para transición perfectamente fluida
+- CSS global drasticamente simplificado para máximo rendimiento
+- Experiencia de navegación ultra suave como desvanecimiento natural
+
+### Corregido
+- Conflicto de nombres en página services (Services → ServicesSection)
+- Advertencia de ViewTransitions deprecado actualizada a nueva API
+- Script JSON-LD con directiva is:inline para eliminar warnings de Astro
+- Eliminadas transiciones específicas de elementos para consistencia global
+
+### Técnico
+- View Transitions API actualizada con configuración minimalista
+- CSS optimizado con solo las reglas esenciales para transiciones
+- Mejor rendimiento al eliminar animaciones complejas innecesarias
+- Accesibilidad mejorada con respeto completo por preferencias de movimiento
+
+## [0.3.1] - 2025-08-26 - View Transitions y Correcciones
+
+### Agregado
+- View Transitions aplicadas a todas las páginas del sitio
+- Componente Services.astro para mostrar servicios del luthier
+- Iconografía SVG personalizada para servicios (construcción y reparación)
+- Tags de servicios con estilos ochre consistentes
+- Soporte completo para View Transitions API de Astro
+
+### Corregido
+- Estructura de props en todas las páginas (seoData → seo)
+- Compatibilidad de BaseLayout con todas las páginas
+- Componente Services.astro faltante implementado
+- Errores de tipos TypeScript en páginas works, services, about y contact
+- Consistencia en la aplicación de View Transitions
+- Iconos de servicios con SVG inline para mejor rendimiento
+
+### Cambiado
+- Todas las páginas ahora usan la prop `seo` correcta en lugar de `seoData`
+- Componente Services.astro adaptado a la estructura de datos existente
+- Transiciones de página más fluidas con animaciones personalizadas
+- Mejor integración entre componentes y datos de servicios
 
 ## [0.3.0] - 2025-08-26 - Sistema de Contacto y Accesibilidad
 

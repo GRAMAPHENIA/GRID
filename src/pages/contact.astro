@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ContactForm from '../components/forms/ContactForm.astro';
 
-const seoData = {
+const seo = {
   title: 'Contacto | Carpena Guitars',
   description: 'Ponte en contacto con Carpena Guitars para consultas sobre construcción, reparación y restauración de instrumentos musicales. Formulario de contacto y información de ubicación.',
   keywords: ['contacto', 'luthier', 'guitarras', 'construcción', 'reparación', 'consulta', 'presupuesto'],
@@ -10,10 +10,10 @@ const seoData = {
 };
 ---
 
-<BaseLayout seoData={seoData}>
+<BaseLayout seo={seo}>
   <main class="min-h-screen bg-pure-white">
     <!-- Hero Section -->
-    <section class="pt-20 md:pt-24 pb-8 md:pb-12 px-4">
+    <section class="hero-section pt-20 md:pt-24 pb-8 md:pb-12 px-4">
       <div class="max-w-4xl mx-auto text-center">
         <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-almost-black mb-4 md:mb-6">
           Hablemos de tu <span class="text-neutral-700">proyecto</span>

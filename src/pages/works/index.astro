@@ -7,7 +7,7 @@ import { getInstruments } from '../../data/instruments';
 const instruments = getInstruments();
 
 // Datos SEO para la página de trabajos
-const seoData = {
+const seo = {
   title: 'Portfolio de Instrumentos | Red Fang Luthier',
   description: 'Explora la colección completa de instrumentos musicales artesanales creados por Red Fang Luthier. Guitarras, bajos, violines y mandolinas construidos con técnicas tradicionales y maderas seleccionadas.',
   keywords: ['luthier', 'instrumentos musicales', 'guitarras artesanales', 'portfolio', 'Red Fang', 'construcción instrumentos'],
@@ -41,10 +41,10 @@ const seoData = {
 };
 ---
 
-<BaseLayout seoData={seoData}>
+<BaseLayout seo={seo}>
   <main class="min-h-screen bg-pure-white">
     <!-- Hero section para la página de trabajos -->
-    <section class="pt-20 md:pt-24 pb-8 md:pb-12 px-4">
+    <section class="hero-section pt-20 md:pt-24 pb-8 md:pb-12 px-4">
       <div class="max-w-4xl mx-auto text-center">
         <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-almost-black mb-4 md:mb-6">
           Portfolio de <span class="text-neutral-700">Instrumentos</span>
